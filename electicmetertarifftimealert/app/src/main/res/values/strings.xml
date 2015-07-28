@@ -1,6 +1,12 @@
 <resources>
-    <string name="app_name">electicmetertarifftimealert</string>
+    <string name="app_name" translatable="false">Electic Meter Tariff Time Alert</string>
 
-    <string name="hello_world">Hello world!</string>
+    <string name="hello_world">Make you choice:</string>
     <string name="action_settings">Settings</string>
+    <string name="enableBootSLabel">Enable boot</string>
+    <string name="enableAlarmSLabel">Enable alarm now</string>
+
+    <string name="tariff_low_price">Low price time starting now...</string>
+    <string name="tariff_medium_price">Medium price time starting now...</string>
+    <string name="tariff_high_price">High price time starting now...</string>
 </resources>

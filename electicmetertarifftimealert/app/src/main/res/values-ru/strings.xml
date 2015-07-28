@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_settings">Настройки</string>
+    <string name="enableBootSLabel">Включить при загрузке</string>
+    <string name="enableAlarmSLabel">Включить сигнал сейчас</string>
+    <string name="hello_world">Выберите действие:</string>
+    <string name="tariff_high_price">Начинается время дорого тарифа на электроэнергию.</string>
+    <string name="tariff_low_price">Начинается время дешёвого тарифа на электроэнергию.</string>
+    <string name="tariff_medium_price">Начинается время умеренного тарифа на электроэнергию.</string>
+</resources>
