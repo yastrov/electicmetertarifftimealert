@@ -2,7 +2,6 @@ package ru.app.yastrov.electicmetertarifftimealert;
 
 import android.app.Notification.Builder;
 import android.content.Context;
-import android.app.Notification;
 import android.app.NotificationManager;
 
 /**
