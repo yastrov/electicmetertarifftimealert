@@ -17,9 +17,6 @@ import android.widget.Switch;
 public class MainActivity extends Activity implements
         //View.OnClickListener,
         CompoundButton.OnCheckedChangeListener {
-    final static String OPTIONS_BOOT_ACTIVATE = "activated_boot";
-    final static String OPTIONS_ALARM_ACTIVATE = "activated_alarm";
-    final static String OPTIONS_WORK_WEEK_ACTIVATE = "activated_work_week";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,13 +52,11 @@ public class MainActivity extends Activity implements
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        SharedPreferences sPref;
-        sPref = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor ed = sPref.edit();
+        SharedPreferences.Editor ed = MyPreferencesHelper.getEditor(this.getApplicationContext());
 
         switch (buttonView.getId()) {
             case R.id.switchEnableBoot:
-                ed.putBoolean(OPTIONS_BOOT_ACTIVATE, isChecked);
+                ed.putBoolean(MyPreferencesHelper.OPTIONS_BOOT_ACTIVATE, isChecked);
                 ed.commit();
                 if(isChecked) {
                     EnableBootIntentReceiver();
@@ -70,7 +65,7 @@ public class MainActivity extends Activity implements
                 }
                 break;
             case R.id.switchEnableAlarm:
-                ed.putBoolean(OPTIONS_ALARM_ACTIVATE, isChecked);
+                ed.putBoolean(MyPreferencesHelper.OPTIONS_ALARM_ACTIVATE, isChecked);
                 ed.commit();
                 Context context = this.getApplicationContext();
                 if(isChecked) {
@@ -79,6 +74,9 @@ public class MainActivity extends Activity implements
                     AlarmManagerReceiver.CancelAlarm(context);
                 }
                 break;
+            case R.id.switchEnableWorkWeek:
+                ed.putBoolean(MyPreferencesHelper.OPTIONS_WORK_WEEK_ACTIVATE, isChecked);
+                ed.commit();
             default:
                 break;
         }
@@ -126,15 +124,20 @@ public class MainActivity extends Activity implements
         Switch sw;
         SharedPreferences sPref;
         boolean checked;
-        sPref = getPreferences(MODE_PRIVATE);
+        sPref = MyPreferencesHelper.getSharedPreferences(this.getApplicationContext());
 
-        checked = sPref.getBoolean(OPTIONS_ALARM_ACTIVATE, false);
+        checked = sPref.getBoolean(MyPreferencesHelper.OPTIONS_ALARM_ACTIVATE, false);
         sw = (Switch)findViewById(R.id.switchEnableAlarm);
         sw.setChecked(checked);
         sw.setOnCheckedChangeListener(this);
 
-        checked = sPref.getBoolean(OPTIONS_BOOT_ACTIVATE, false);
+        checked = sPref.getBoolean(MyPreferencesHelper.OPTIONS_BOOT_ACTIVATE, false);
         sw = (Switch)findViewById(R.id.switchEnableBoot);
+        sw.setChecked(checked);
+        sw.setOnCheckedChangeListener(this);
+
+        checked = sPref.getBoolean(MyPreferencesHelper.OPTIONS_WORK_WEEK_ACTIVATE, false);
+        sw = (Switch)findViewById(R.id.switchEnableWorkWeek);
         sw.setChecked(checked);
         sw.setOnCheckedChangeListener(this);
     }

@@ -5,6 +5,8 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+
 import java.util.GregorianCalendar;
 import java.util.Calendar;
 
@@ -28,6 +30,15 @@ public class AlarmManagerReceiver extends BroadcastReceiver {
     */
         Calendar calendar = new GregorianCalendar();
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int dow = calendar.get (Calendar.DAY_OF_WEEK);
+
+        SharedPreferences sPref = MyPreferencesHelper.getSharedPreferences(context);
+        if(sPref.getBoolean(MyPreferencesHelper.OPTIONS_WORK_WEEK_ACTIVATE, false)) {
+            if ((dow >= Calendar.MONDAY) && (dow <= Calendar.FRIDAY) && (hour < 18) && (hour >= 7)) {
+                return;
+            }
+        }
+
         if(hour < 7) {
             MyNotificationHelper.MakeNotify(context,
                     context.getResources().getString(R.string.tariff_low_price));
