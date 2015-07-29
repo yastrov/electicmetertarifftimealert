@@ -6,6 +6,7 @@
     <string name="enableBootSLabel">Enable boot</string>
     <string name="enableAlarmSLabel">Enable alarm now</string>
     <string name="enableWorkWeekSLabel">Disable alert during work week</string>
+    <string name="please_wait">In progress. Please, wait…</string>
 
     <string name="tariff_low_price">Low price time starting now...</string>
     <string name="tariff_medium_price">Medium price time starting now...</string>

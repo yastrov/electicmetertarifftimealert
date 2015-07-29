@@ -1,6 +1,7 @@
 package ru.app.yastrov.electicmetertarifftimealert;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -52,6 +53,11 @@ public class MainActivity extends Activity implements
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        ProgressDialog mProgressDialog = new ProgressDialog(MainActivity.this);
+        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        mProgressDialog.setMessage(getResources().getString(R.string.please_wait));
+        mProgressDialog.show();
+
         SharedPreferences.Editor ed = MyPreferencesHelper.getEditor(this.getApplicationContext());
 
         switch (buttonView.getId()) {
@@ -80,7 +86,7 @@ public class MainActivity extends Activity implements
             default:
                 break;
         }
-
+        mProgressDialog.dismiss();
     }
 
     /*
