@@ -131,9 +131,11 @@ public class MainActivity extends Activity implements
         checked = sPref.getBoolean(OPTIONS_ALARM_ACTIVATE, false);
         sw = (Switch)findViewById(R.id.switchEnableAlarm);
         sw.setChecked(checked);
+        sw.setOnCheckedChangeListener(this);
 
         checked = sPref.getBoolean(OPTIONS_BOOT_ACTIVATE, false);
         sw = (Switch)findViewById(R.id.switchEnableBoot);
         sw.setChecked(checked);
+        sw.setOnCheckedChangeListener(this);
     }
 }
