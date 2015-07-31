@@ -5,9 +5,6 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-
-import java.util.GregorianCalendar;
 import java.util.Calendar;
 
 public class AlarmManagerReceiver extends BroadcastReceiver {
@@ -28,41 +25,20 @@ public class AlarmManagerReceiver extends BroadcastReceiver {
 
         }
     */
-        Calendar calendar = new GregorianCalendar();
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        int dow = calendar.get (Calendar.DAY_OF_WEEK);
-
-        SharedPreferences sPref = MyPreferencesHelper.getSharedPreferences(context);
-        if(sPref.getBoolean(MyPreferencesHelper.OPTIONS_WORK_WEEK_ACTIVATE, false)) {
-            if ((dow >= Calendar.MONDAY) && (dow <= Calendar.FRIDAY) && (hour < 18) && (hour >= 7)) {
-                return;
-            }
-        }
-
-        if(hour < 7) {
+        int result = AlarmHelper.WhatTariffNow(context);
+        if (result == AlarmHelper.CODE_LOW_TARIFF) {
             MyNotificationHelper.MakeNotify(context,
                     context.getResources().getString(R.string.tariff_low_price));
             return;
         }
-        if (hour >= 7 && hour < 10) {
+        if (result == AlarmHelper.CODE_MEDIUM_TARIFF) {
+            MyNotificationHelper.MakeNotify(context,
+                    context.getResources().getString(R.string.tariff_medium_price));
+            return;
+        }
+        if (result == AlarmHelper.CODE_HIGH_TARIFF) {
             MyNotificationHelper.MakeNotify(context,
                     context.getResources().getString(R.string.tariff_high_price));
-            return;
-        }
-        if (hour >= 10 && hour < 17) {
-            MyNotificationHelper.MakeNotify(context,context.getResources().getString(R.string.tariff_medium_price));
-            return;
-        }
-        if (hour >= 17 && hour < 21) {
-            MyNotificationHelper.MakeNotify(context,context.getResources().getString(R.string.tariff_high_price));
-            return;
-        }
-        if (hour >= 21 && hour < 23) {
-            MyNotificationHelper.MakeNotify(context,context.getResources().getString(R.string.tariff_medium_price));
-            return;
-        }
-        if (hour >= 23) {
-            MyNotificationHelper.MakeNotify(context,context.getResources().getString(R.string.tariff_low_price));
             return;
         }
     }
