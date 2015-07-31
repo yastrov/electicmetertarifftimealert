@@ -11,4 +11,6 @@
     <string name="tariff_low_price">Low price time starting now...</string>
     <string name="tariff_medium_price">Medium price time starting now...</string>
     <string name="tariff_high_price">High price time starting now...</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>
