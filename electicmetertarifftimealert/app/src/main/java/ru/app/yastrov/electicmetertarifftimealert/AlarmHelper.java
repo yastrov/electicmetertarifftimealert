@@ -9,7 +9,7 @@ import java.util.GregorianCalendar;
 /**
  * Created by Yuriy Astrov on 31.07.2015.
  */
-public class AlarmHelper
+public class AlarmHelper {
     public static final int CODE_PASS = 0;
     public static final int CODE_LOW_TARIFF = 1;
     public static final int CODE_MEDIUM_TARIFF = 2;
@@ -36,5 +36,6 @@ public class AlarmHelper
         if ((hour >= 10 && hour < 17) || (hour >= 21 && hour < 23)) {
             return CODE_MEDIUM_TARIFF;
         }
+        return CODE_PASS;
     }
 }
