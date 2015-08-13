@@ -13,4 +13,5 @@
     <string name="tariff_high_price">High price time starting now...</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+    <string name="instruction_text">\n</string>
 </resources>

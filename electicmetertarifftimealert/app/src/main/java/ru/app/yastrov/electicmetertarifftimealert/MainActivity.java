@@ -9,8 +9,14 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.TabHost;
+import android.widget.TextView;
 
 
 public class MainActivity extends Activity implements
@@ -25,6 +31,28 @@ public class MainActivity extends Activity implements
         /*Button btnSave = (Button) findViewById(R.id.btnSave);
         btnSave.setOnClickListener(this);*/
         LoadPreferencesAndShowOnActivity();
+
+        TabHost tabs = (TabHost) findViewById(R.id.tabHost);
+        tabs.setup();
+
+        TabHost.TabSpec spec = tabs.newTabSpec("tag1");
+        spec.setContent(R.id.tab1);
+        spec.setIndicator(getResources().getString(R.string.action_settings));
+        //spec.setIndicator("Settings", getResources().getDrawable(R.drawable.icon_videos_tab, null));
+        tabs.addTab(spec);
+
+        spec = tabs.newTabSpec("tag2");
+        spec.setContent(R.id.tab2);
+        spec.setIndicator("Info");
+        tabs.addTab(spec);
+
+        spec = tabs.newTabSpec("tag3");
+        spec.setContent(R.id.tab3);
+        spec.setIndicator("About");
+        tabs.addTab(spec);
+
+        TextView tv = (TextView) findViewById(R.id.InfoTextView);
+        tv.setText(R.string.instruction_text);
     }
 
     @Override
