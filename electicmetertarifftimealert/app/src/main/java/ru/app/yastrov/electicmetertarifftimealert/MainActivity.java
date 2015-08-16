@@ -111,6 +111,11 @@ public class MainActivity extends Activity implements
             case R.id.switchEnableWorkWeek:
                 ed.putBoolean(MyPreferencesHelper.OPTIONS_WORK_WEEK_ACTIVATE, isChecked);
                 ed.commit();
+                break;
+            case R.id.switchEnableEveryHour:
+                ed.putBoolean(MyPreferencesHelper.OPTIONS_EVERY_HOUR_ACTIVATE, isChecked);
+                ed.commit();
+                break;
             default:
                 break;
         }
@@ -172,6 +177,11 @@ public class MainActivity extends Activity implements
 
         checked = sPref.getBoolean(MyPreferencesHelper.OPTIONS_WORK_WEEK_ACTIVATE, false);
         sw = (Switch)findViewById(R.id.switchEnableWorkWeek);
+        sw.setChecked(checked);
+        sw.setOnCheckedChangeListener(this);
+
+        checked = sPref.getBoolean(MyPreferencesHelper.OPTIONS_EVERY_HOUR_ACTIVATE, false);
+        sw = (Switch)findViewById(R.id.switchEnableEveryHour);
         sw.setChecked(checked);
         sw.setOnCheckedChangeListener(this);
     }

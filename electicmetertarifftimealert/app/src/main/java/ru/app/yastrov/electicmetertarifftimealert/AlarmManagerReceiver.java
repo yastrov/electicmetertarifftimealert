@@ -25,7 +25,7 @@ public class AlarmManagerReceiver extends BroadcastReceiver {
 
         }
     */
-        int result = AlarmHelper.WhatTariffNow(context);
+        int result = AlarmHelper.WhatTariffNowStrictPreferenceFeature(context);
         if (result == AlarmHelper.CODE_LOW_TARIFF) {
             MyNotificationHelper.MakeNotify(context,
                     context.getResources().getString(R.string.tariff_low_price));

@@ -11,6 +11,7 @@ public class MyPreferencesHelper {
     public final static String OPTIONS_BOOT_ACTIVATE = "activated_boot";
     public final static String OPTIONS_ALARM_ACTIVATE = "activated_alarm";
     public final static String OPTIONS_WORK_WEEK_ACTIVATE = "activated_work_week";
+    public final static String OPTIONS_EVERY_HOUR_ACTIVATE = "activated_every_hour";
 
     public static SharedPreferences getSharedPreferences(Context context) {
         return context.getSharedPreferences(SETTINGS_NAME, context.MODE_PRIVATE);
