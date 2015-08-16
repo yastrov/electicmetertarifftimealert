@@ -50,6 +50,8 @@ public class MainActivity extends Activity implements
         spec.setContent(R.id.tab3);
         spec.setIndicator("About");
         tabs.addTab(spec);
+        // Set current Tab
+        tabs.setCurrentTab(0);
 
         TextView tv = (TextView) findViewById(R.id.InfoTextView);
         tv.setText(R.string.instruction_text);
