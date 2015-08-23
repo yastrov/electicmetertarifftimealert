@@ -113,7 +113,7 @@ public class TariffAlertWidget extends AppWidgetProvider {
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 
-    private void SetAlarm(Context context) {
+    private static void SetAlarm(Context context) {
         Log.d(LOG_TAG, "SetAlarm");
         AlarmManager alarmMgr;
         PendingIntent alarmIntent;
@@ -131,7 +131,7 @@ public class TariffAlertWidget extends AppWidgetProvider {
                 AlarmManager.INTERVAL_HOUR /*1000 * 60 * 20*/, alarmIntent);
     }
 
-    private void CancelAlarm(Context context) {
+    private static void CancelAlarm(Context context) {
         Log.d(LOG_TAG, "CancelAlarm");
         AlarmManager alarmMgr;
         PendingIntent alarmIntent;
