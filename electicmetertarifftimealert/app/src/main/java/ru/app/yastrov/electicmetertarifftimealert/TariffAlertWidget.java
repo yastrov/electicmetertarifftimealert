@@ -4,10 +4,8 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.util.Log;
 import android.widget.RemoteViews;
 
@@ -25,9 +23,33 @@ public class TariffAlertWidget extends AppWidgetProvider {
         // There may be multiple widgets active, so update all of them
         super.onUpdate(context, appWidgetManager, appWidgetIds);
         Log.d(LOG_TAG, "onUpdate");
+
+        final int background_resource;
+        final CharSequence widgetText;
+        final int result = AlarmHelper.WhatTariffNow(context);
+        switch (result)
+        {
+            case AlarmHelper.CODE_LOW_TARIFF:
+                widgetText = context.getString(R.string.tariff_low_price);
+                background_resource = R.drawable.widget_background_gradient_low;
+                break;
+            case AlarmHelper.CODE_MEDIUM_TARIFF:
+                widgetText = context.getString(R.string.tariff_medium_price);
+                background_resource = R.drawable.widget_background_gradient_medium;
+                break;
+            case AlarmHelper.CODE_HIGH_TARIFF:
+                widgetText = context.getString(R.string.tariff_high_price);
+                background_resource = R.drawable.widget_background_gradient_hight;
+                break;
+            default:
+                background_resource = R.drawable.widget_background_gradient;
+                widgetText = context.getString(R.string.app_name);
+                break;
+        }
+
         final int N = appWidgetIds.length;
         for (int i = 0; i < N; i++) {
-            updateWidget(context, appWidgetManager, appWidgetIds[i]);
+            updateWidget(context, appWidgetManager, appWidgetIds[i], background_resource, widgetText);
         }
     }
 
@@ -56,19 +78,8 @@ public class TariffAlertWidget extends AppWidgetProvider {
      */
     @Override
     public void onReceive(Context context, Intent intent) {
-        super.onReceive(context, intent);
         Log.d(LOG_TAG, "onReceive");
-        if (intent.getAction().equalsIgnoreCase(ACTION_APPWIDGET_UPDATE)) {
-            ComponentName thisAppWidget = new ComponentName(
-                    context.getPackageName(), getClass().getName());
-            AppWidgetManager appWidgetManager = AppWidgetManager
-                    .getInstance(context);
-            int ids[] = appWidgetManager.getAppWidgetIds(thisAppWidget);
-            // It's reason if widgets 1 or 2.
-            for (int appWidgetID : ids) {
-                updateWidget(context, appWidgetManager, appWidgetID);
-            }
-        }
+        super.onReceive(context, intent); // It process default ACTION_APPWIDGET_UPDATE
     }
 
     /**
@@ -78,23 +89,8 @@ public class TariffAlertWidget extends AppWidgetProvider {
      * @param appWidgetId
      */
     static void updateWidget(Context context, AppWidgetManager appWidgetManager,
-                                int appWidgetId) {
+                                int appWidgetId, int background_resource, CharSequence widgetText) {
         Log.d(LOG_TAG, "updateWidget");
-        int background_resource = R.drawable.widget_background_gradient;
-        int result = AlarmHelper.WhatTariffNow(context);
-        CharSequence widgetText = context.getString(R.string.app_name);
-        if (result == AlarmHelper.CODE_LOW_TARIFF) {
-            widgetText = context.getString(R.string.tariff_low_price);
-            background_resource = R.drawable.widget_background_gradient_low;
-        }
-        if (result == AlarmHelper.CODE_MEDIUM_TARIFF) {
-            widgetText = context.getString(R.string.tariff_medium_price);
-            background_resource = R.drawable.widget_background_gradient_medium;
-        }
-        if (result == AlarmHelper.CODE_HIGH_TARIFF) {
-            widgetText = context.getString(R.string.tariff_high_price);
-            background_resource = R.drawable.widget_background_gradient_hight;
-        }
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.tariff_alert_widget);
         views.setTextViewText(R.id.information_widget_text, widgetText);
