@@ -2,10 +2,13 @@ package ru.app.yastrov.electicmetertarifftimealert;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -111,6 +114,7 @@ public class MainActivity extends Activity implements
             case R.id.switchEnableWorkWeek:
                 ed.putBoolean(MyPreferencesHelper.OPTIONS_WORK_WEEK_ACTIVATE, isChecked);
                 ed.commit();
+                updateWidgets(this);
                 break;
             case R.id.switchEnableEveryHour:
                 ed.putBoolean(MyPreferencesHelper.OPTIONS_EVERY_HOUR_ACTIVATE, isChecked);
@@ -184,5 +188,20 @@ public class MainActivity extends Activity implements
         sw = (Switch)findViewById(R.id.switchEnableEveryHour);
         sw.setChecked(checked);
         sw.setOnCheckedChangeListener(this);
+    }
+
+    private static void updateWidgets(Context context) {
+        // Use an array and EXTRA_APPWIDGET_IDS instead of AppWidgetManager.EXTRA_APPWIDGET_ID,
+        // since it seems the onUpdate() is only fired on that:
+        AppWidgetManager widgetManager = AppWidgetManager.getInstance(context);
+        int[] ids = widgetManager.getAppWidgetIds(new ComponentName(context, TariffAlertWidget.class));
+        if(ids.length != 0) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+                widgetManager.notifyAppWidgetViewDataChanged(ids, android.R.id.list);
+            Intent intent = new Intent(context.getApplicationContext(), TariffAlertWidget.class);
+            intent.setAction(TariffAlertWidget.ACTION_APPWIDGET_UPDATE);
+            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+            context.sendBroadcast(intent);
+        }
     }
 }

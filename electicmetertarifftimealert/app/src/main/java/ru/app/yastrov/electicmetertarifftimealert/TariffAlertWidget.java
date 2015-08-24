@@ -17,8 +17,8 @@ import java.util.Calendar;
  * Implementation of App Widget functionality.
  */
 public class TariffAlertWidget extends AppWidgetProvider {
-    static final String UPDATE_ALL_WIDGETS = "update_all_widgets";
     static  final String LOG_TAG = "TariffAlertWidget";
+    public static final String ACTION_APPWIDGET_UPDATE = "android.appwidget.action.APPWIDGET_UPDATE";
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -58,7 +58,7 @@ public class TariffAlertWidget extends AppWidgetProvider {
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
         Log.d(LOG_TAG, "onReceive");
-        if (intent.getAction().equalsIgnoreCase(UPDATE_ALL_WIDGETS)) {
+        if (intent.getAction().equalsIgnoreCase(ACTION_APPWIDGET_UPDATE)) {
             ComponentName thisAppWidget = new ComponentName(
                     context.getPackageName(), getClass().getName());
             AppWidgetManager appWidgetManager = AppWidgetManager
@@ -120,7 +120,7 @@ public class TariffAlertWidget extends AppWidgetProvider {
         PendingIntent alarmIntent;
         alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, TariffAlertWidget.class);
-        intent.setAction(UPDATE_ALL_WIDGETS);
+        intent.setAction(ACTION_APPWIDGET_UPDATE);
         alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
 
         // Set the alarm to start at 1:00 a.m.
