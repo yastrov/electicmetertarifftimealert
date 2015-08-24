@@ -80,25 +80,26 @@ public class TariffAlertWidget extends AppWidgetProvider {
     static void updateWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
         Log.d(LOG_TAG, "updateWidget");
-        int color = Color.WHITE;
+        int background_resource = R.drawable.widget_background_gradient;
         int result = AlarmHelper.WhatTariffNow(context);
         CharSequence widgetText = context.getString(R.string.app_name);
         if (result == AlarmHelper.CODE_LOW_TARIFF) {
             widgetText = context.getString(R.string.tariff_low_price);
-            color = Color.GREEN;
+            background_resource = R.drawable.widget_background_gradient_low;
         }
         if (result == AlarmHelper.CODE_MEDIUM_TARIFF) {
             widgetText = context.getString(R.string.tariff_medium_price);
-            color = Color.YELLOW;
+            background_resource = R.drawable.widget_background_gradient_medium;
         }
         if (result == AlarmHelper.CODE_HIGH_TARIFF) {
             widgetText = context.getString(R.string.tariff_high_price);
-            color = Color.RED;
+            background_resource = R.drawable.widget_background_gradient_hight;
         }
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.tariff_alert_widget);
-        views.setTextViewText(R.id.appwidget_text, widgetText);
-        views.setInt(R.id.appwidget_text, "setBackgroundColor", color);
+        views.setTextViewText(R.id.information_widget_text, widgetText);
+        views.setInt(R.id.information_widget, "setBackgroundResource", background_resource);
+        views.setImageViewResource(R.id.information_widget_image_view, R.drawable.ic_stat_name);
         // Open MainActivity
         Intent configIntent = new Intent(context, MainActivity.class);
         configIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_CONFIGURE);
@@ -107,7 +108,7 @@ public class TariffAlertWidget extends AppWidgetProvider {
             or PendingIntent.getBroadcast() for Widget or BroadcastReceiver
          */
         PendingIntent pIntent = PendingIntent.getActivity(context, appWidgetId, configIntent, 0);
-        views.setOnClickPendingIntent(R.id.appwidget_text, pIntent);
+        views.setOnClickPendingIntent(R.id.information_widget, pIntent);
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
