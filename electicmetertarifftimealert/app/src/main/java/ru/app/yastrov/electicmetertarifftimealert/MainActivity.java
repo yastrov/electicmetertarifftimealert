@@ -94,7 +94,7 @@ public class MainActivity extends Activity implements
         switch (buttonView.getId()) {
             case R.id.switchEnableBoot:
                 ed.putBoolean(MyPreferencesHelper.OPTIONS_BOOT_ACTIVATE, isChecked);
-                ed.commit();
+                ed.apply();
                 if(isChecked) {
                     EnableBootIntentReceiver();
                 } else {
@@ -103,7 +103,7 @@ public class MainActivity extends Activity implements
                 break;
             case R.id.switchEnableAlarm:
                 ed.putBoolean(MyPreferencesHelper.OPTIONS_ALARM_ACTIVATE, isChecked);
-                ed.commit();
+                ed.apply();
                 Context context = this.getApplicationContext();
                 if(isChecked) {
                     AlarmManagerReceiver.SetAlarm(context);
@@ -113,12 +113,12 @@ public class MainActivity extends Activity implements
                 break;
             case R.id.switchEnableWorkWeek:
                 ed.putBoolean(MyPreferencesHelper.OPTIONS_WORK_WEEK_ACTIVATE, isChecked);
-                ed.commit();
+                ed.apply();
                 updateWidgets(this);
                 break;
             case R.id.switchEnableEveryHour:
                 ed.putBoolean(MyPreferencesHelper.OPTIONS_EVERY_HOUR_ACTIVATE, isChecked);
-                ed.commit();
+                ed.apply();
                 break;
             default:
                 break;
