@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,8 +34,6 @@ public class MainActivity extends Activity implements
 
         /*Button btnSave = (Button) findViewById(R.id.btnSave);
         btnSave.setOnClickListener(this);*/
-        LoadPreferencesAndShowOnActivity();
-
         TabHost tabs = (TabHost) findViewById(R.id.tabHost);
         tabs.setup();
 
@@ -58,6 +57,13 @@ public class MainActivity extends Activity implements
 
         TextView tv = (TextView) findViewById(R.id.InfoTextView);
         tv.setText(R.string.instruction_text);
+    }
+
+    @Override
+    public void onResume() {
+        Log.d(MainActivity.class.toString(), "onResume");
+        super.onResume();
+        LoadPreferencesAndShowOnActivity();
     }
 
     @Override
