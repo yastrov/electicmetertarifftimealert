@@ -25,22 +25,7 @@ public class AlarmManagerReceiver extends BroadcastReceiver {
 
         }
     */
-        int result = AlarmHelper.WhatTariffNowStrictPreferenceFeature(context);
-        if (result == AlarmHelper.CODE_LOW_TARIFF) {
-            MyNotificationHelper.MakeNotify(context,
-                    context.getResources().getString(R.string.tariff_low_price));
-            return;
-        }
-        if (result == AlarmHelper.CODE_MEDIUM_TARIFF) {
-            MyNotificationHelper.MakeNotify(context,
-                    context.getResources().getString(R.string.tariff_medium_price));
-            return;
-        }
-        if (result == AlarmHelper.CODE_HIGH_TARIFF) {
-            MyNotificationHelper.MakeNotify(context,
-                    context.getResources().getString(R.string.tariff_high_price));
-            return;
-        }
+        NotifyIntentService.startActionRegularAlarmTick(context);
     }
 
     public static void SetAlarm(Context context) {
